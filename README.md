@@ -1,7 +1,5 @@
 # mileage-analysis
 
-The code and data behind this article: http://thedataface.com/2018/06/culture/comedy-writing-staffs
-
 Data comes from Strava (https://support.strava.com/hc/en-us/articles/216918437-Exporting-your-Data-and-Bulk-Export#Bulk). Strava will send you a link to download your data, which we are primarily interested in the 'activities.csv' file.
 
 ## Notebook
