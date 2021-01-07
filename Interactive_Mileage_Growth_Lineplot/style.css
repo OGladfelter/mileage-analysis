@@ -1,0 +1,38 @@
+body {
+    font-family: sans-serif;
+    color: #444;
+    background-color: whitesmoke;
+}
+
+.mileage_line {
+    fill: none;
+    stroke: #ffab00;
+    stroke-width: 3;
+}
+
+.pace_line {
+    fill: none;
+    stroke: black;
+    stroke-width: 1.5;
+    stroke-dasharray: 10;
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+}
+
+.axis text {
+    font-size: 10px;
+}
+
+.dot{
+    stroke: black;
+    fill: #ffab00;
+}
+
+.label{
+    font-weight: bold;
+}
