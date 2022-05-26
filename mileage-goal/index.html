@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-146824308-1"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-146824308-1');
+    </script>
+            
+    <meta charset="utf-8">
+    <title>The Path To 1,400 Miles In 2021</title>
+
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="../favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../favicon/favicon-16x16.png">
+    <link rel="manifest" href="../favicon/site.webmanifest">
+
+    <!-- Facebook Opengraph -->
+    <meta property="og:url" content="https://cultureplot.com/mileage-goal/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="The Path To 1,400 Miles In 2021" />
+    <meta property="og:description" content="See My Progress Towards My Mileage Goal, Or Swap In Your Own Data"/>
+
+    <meta property="og:image" content="https://cultureplot.com/img/strava_lineplot_preview.png" />
+    <meta property="og:image:alt" content="Lineplot of Strava running data" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="https://cultureplot.com/img/strava_lineplot_preview.png" />
+    <meta name="twitter:image:alt" content="Lineplot of Strava running data" />
+    <meta name="twitter:description" content="See My Progress Towards My Mileage Goal, Or Swap In Your Own Data"/>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
+    <link rel="stylesheet" href="css/style.css">
+
+    <script src="https://rawgit.com/susielu/d3-annotation/master/d3-annotation.min.js"></script>
+</head>
+
+<html>
+<body>
+
+
+<body>
+    <!-- banner -->
+    <div class="navbar">
+        <a href="https://cultureplot.com">Cultureplot</a>
+    </div>
+    
+    <h1 id="title">The Path To 1,400 Miles In 2021</h1>
+    <span class="bylineSpan">By <a href="https://cultureplot.com/about/" target="_blank">Oliver Gladfelter</a></span><span class="bylineSpan" style="color: gray;"> | Jan 2021</span>
+
+    <div id="viz"></div>
+
+    <!-- this gets moved up to the top of the viz div -->
+    <div id="sliderDiv" class="sliderDiv">
+        <p style="margin: 0; margin-bottom: 5px;">Mileage Goal: <span id="sliderLabel"></span></p>
+        <input type="range" min="500" max="3000" value="1400" step="50" class="range-slider grad" id="slider">
+    </div>
+
+    <div class="row">
+        
+        <div style="text-align:center;" class="column">
+            <a href="https://cultureplot.com/mileage-goal-custom" class="chill">
+            <fieldset>
+                <legend>Custom Strava Visualizer</legend>
+                <p>Want to see your running or cycling mileage in a similar chart? Use Strava? Click here!</p>
+                <img src="https://cultureplot.com/img/strava_lineplot_preview.png">
+            </fieldset>
+            </a>
+        </div>
+        
+        <div class="column">
+            <fieldset>
+                <legend>Data Editor</legend>
+                <article>
+                    <p>The chart is currently showing my personal running data...but it could be plotting yours!</p>
+                    <p>Edit the below text and watch the chart react. Every row must have a date in “YYYY-MM-DD” format, followed by a comma, followed by a number.</p>
+                    <p>You can also update the mileage goal, using the slider in the top left corner of the chart.</p>
+                    <span class="dataEditorError">Only numbers can go in the miles column!</span>
+                </article>
+                <br>
+                <textarea rows="10" cols="50" name="comment" form="usrform" id="dataEditor">date,miles</textarea>
+                <br>
+                <div class="buttonsDiv">
+                    <button type="button" onclick="readDataEditor()">Update graph</button>
+                    <button type="button" onclick="resetDataButton()">Reset data</button>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+    
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/fileReader.js"></script>
+
+</body>
+</html>
