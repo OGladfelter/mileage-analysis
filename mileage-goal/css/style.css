@@ -79,8 +79,6 @@ span.bylineSpan{
 .dot{
     stroke: black;
     fill: #ffab00;
-    r: 6;
-    /* opacity: 0; */
 }
 
 .sliderDiv{
