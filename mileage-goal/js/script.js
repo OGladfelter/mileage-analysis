@@ -78,7 +78,7 @@ d3.csv(file_name, function(data) {
     // set the ranges
     x = d3.scaleTime().range([0, width]).domain(d3.extent(data, function(d) { return d.date; }));
     y = d3.scaleLinear().range([height, 0]).domain([0,d3.max([maxMileage, maxPace])]);
-    r = d3.scaleLinear().range([0, 20]).domain(d3.extent(data, function(d) { return d.miles; }));
+    r = d3.scaleLinear().range([0, 20]).domain(d3.extent(data, function(d) { return d.miles; })).clamp(true);
 
     // add axes
     var xAxis = d3.axisBottom(x).ticks(numTicks).tickFormat(d3.timeFormat("%b %d"));
@@ -143,7 +143,7 @@ d3.csv(file_name, function(data) {
         .attr("class", "label") // Assign a class for styling
         .attr("x", function(d) { return x(d.date) })
         .attr("y", function(d) { return y(d.mileage) })
-        .attr("dy", "-20")
+        .attr("dy", "-40")
         .text(function(d, i) {
             if (i > 0){
                 // label every other (label_freq) days
@@ -361,7 +361,7 @@ d3.csv(file_name, function(data) {
         // move tooltip
         tooltip
             .style("visibility", "visible")
-            .html("<b>" + dateToString(d.date) + "</b>: " + d.miles.toFixed(0) + " Miles<br>Year to Date: " + d.mileage.toFixed(0) + "<br>" + paceEval +  aheadBehind + " pace")
+            .html("<b>" + dateToString(d.date) + "</b>: " + d.miles.toFixed(0) + " Miles<br>" + d.mileage.toFixed(0) + " miles year-to-date<br>" + paceEval +  aheadBehind + " pace")
             .transition().duration(250)
             .style("left", function(){
 
@@ -422,18 +422,19 @@ d3.csv(file_name, function(data) {
 
     // call when user clicks 'YY miles this year' text
     function pulseOnMaxMileage() {
+        const mostRecentDay = data[data.length-1]
         var circle = d3.selectAll("circle").filter(function(d) { return d.date == data[data.length-1].date })
             .transition()
             .duration(2000)
-            .style("opacity", "1")
-            .attr("stroke-width", 2)
-            .attr("r", 20)
+            .style("stroke-width", 2)
+            .style("r", 50)
             .transition()
             .duration(2000)
-            .style("opacity", "0")
-            .attr('stroke-width', 1)
-            .attr("r", 5);
+            .style('stroke-width', 1)
+            .style("r", r(data[data.length-1].miles));
     }
+
+    pulseOnMaxMileage();
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
