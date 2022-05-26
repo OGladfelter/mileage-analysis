@@ -61,23 +61,23 @@
     </div>
     
     <h1 id="title">The Path To 1,800 Miles In 2022</h1>
-    <span class="bylineSpan">By <a href="https://cultureplot.com/about/" target="_blank">Oliver Gladfelter</a></span><span class="bylineSpan" style="color: gray;"> | Jan 2021</span>
+    <span class="bylineSpan">By <a href="https://cultureplot.com/about/" target="_blank">Oliver Gladfelter</a></span><span class="bylineSpan" style="color: gray;"> | Jan 1, 2022</span>
 
     <div id="viz"></div>
 
     <!-- this gets moved up to the top of the viz div -->
     <div id="sliderDiv" class="sliderDiv">
         <p style="margin: 0; margin-bottom: 5px;">Mileage Goal: <span id="sliderLabel"></span></p>
-        <input type="range" min="500" max="3000" value="1400" step="50" class="range-slider grad" id="slider">
+        <input type="range" min="300" max="5000" value="1400" step="50" class="range-slider grad" id="slider">
     </div>
 
     <div class="row">
         
         <div style="text-align:center;" class="column">
-            <a href="https://cultureplot.com/strava" class="chill">
+            <a href="../strava" target="_blank" class="chill">
             <fieldset>
                 <legend>Custom Strava Visualizer</legend>
-                <p>Want to see your running or cycling mileage in a similar chart? Use Strava? Click here!</p>
+                <p>Use Strava and want to see your running, cycling, or other activity mileage in a similar goal tracker? Click here!</p>
                 <img src="https://cultureplot.com/img/strava_lineplot_preview.png">
             </fieldset>
             </a>
@@ -90,10 +90,10 @@
                     <p>The chart is currently showing my personal running data...but it could be plotting yours!</p>
                     <p>Edit the below text and watch the chart react. Every row must have a date in “YYYY-MM-DD” format, followed by a comma, followed by a number.</p>
                     <p>You can also update the mileage goal, using the slider in the top left corner of the chart.</p>
-                    <span class="dataEditorError">Only numbers can go in the miles column!</span>
+                    <p class="dataEditorError">Only numbers can go in the miles column!</p>
                 </article>
                 <br>
-                <textarea rows="10" cols="50" name="comment" form="usrform" id="dataEditor">date,miles</textarea>
+                    <textarea rows="10" cols="50" name="comment" form="usrform" id="dataEditor">date,miles</textarea>
                 <br>
                 <div class="buttonsDiv">
                     <button type="button" onclick="readDataEditor()">Update graph</button>

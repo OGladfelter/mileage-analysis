@@ -48,13 +48,13 @@ function readDataEditor(){
 function updateDataEditor(){
 
 
-    d3.csv("data/2021_mileage.csv", function(data){
+    d3.csv("data/2022_mileage.csv", function(data){
 
         string = "date,miles";
 
         for (row=0; row<data.length; row++){
 
-            string = string + "\n" + data[row].date + "," + data[row].miles;
+            string = string + "\n" + data[row].date + "," + Math.round(data[row].miles);
         }
 
         document.getElementById("dataEditor").value = string;
@@ -182,7 +182,7 @@ function updateGraph(data){
         .attr("class", "dot") 
         .attr("cx", function(d) {return x(d.date)})
         .attr("cy", function(d) {return y(d.mileage)})
-        .style("r", function(d){if (d.miles >= 20){return 20} else{return d.miles}})
+        .style("r", function(d) {return r(d.miles)})
         .on("mouseover", pointMouseover)
         .on("mouseout", pointMouseout);  
 

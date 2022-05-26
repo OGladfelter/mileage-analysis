@@ -1,6 +1,6 @@
 // parameters
-const file_name = "data/2021_mileage.csv"; // name of data csv
-const annual_mileage_goal = 1400; // how many miles I want(ed) to run in this(past) year
+const file_name = "data/2022_mileage.csv"; // name of data csv
+const annual_mileage_goal = 1800; // how many miles I want(ed) to run in this(past) year
 
 // set the dimensions and margins of the graph on mobile
 if (screen.width < 600){
@@ -17,7 +17,7 @@ else{ // on larger device
     // dimensions
     var height = window.innerHeight * .9;
     var width = window.innerWidth * .9;
-    var margin = {top: 50, right: 50, bottom: 50, left: 50};
+    var margin = {top: 50, right: 70, bottom: 50, left: 70};
     var width = width - margin.left - margin.right;
     var height = height - margin.top - margin.bottom;
 
@@ -78,6 +78,7 @@ d3.csv(file_name, function(data) {
     // set the ranges
     x = d3.scaleTime().range([0, width]).domain(d3.extent(data, function(d) { return d.date; }));
     y = d3.scaleLinear().range([height, 0]).domain([0,d3.max([maxMileage, maxPace])]);
+    r = d3.scaleLinear().range([0, 20]).domain(d3.extent(data, function(d) { return d.miles; }));
 
     // add axes
     var xAxis = d3.axisBottom(x).ticks(numTicks).tickFormat(d3.timeFormat("%b %d"));
@@ -94,7 +95,7 @@ d3.csv(file_name, function(data) {
     svg.append("text")
       .attr("transform", "rotate(-90)")
       .attr("y", 0 - margin.left)
-      .attr("x",0 - (height / 2))
+      .attr("x", 0 - (height / 2))
       .attr("dy", "1em")
       .style("text-anchor", "middle")
       .style("fill", "#222")
@@ -130,7 +131,7 @@ d3.csv(file_name, function(data) {
         .attr("class", "dot") 
         .attr("cx", function(d) {return x(d.date)})
         .attr("cy", function(d) {return y(d.mileage)})
-        .style("r", function(d){if (d.miles >= 20){return 20} else{return d.miles}})
+        .style("r", function(d) {return r(d.miles)})
         .on("mouseover", pointMouseover)
         .on("mouseout", pointMouseout);  
 
@@ -298,9 +299,6 @@ d3.csv(file_name, function(data) {
 
         // everything up to cursor is orange, and gray on other side
         this.style.background = `linear-gradient(to right, #ffab00, #ffab00 ${(this.value-this.min)/(this.max-this.min)*100}%, #c6c6c6 ${(this.value-this.min)/(this.max-this.min)*100}%, #c6c6c6 100%)`
-
-        // update title
-        //document.getElementById("title").innerHTML = "The Path To " + d3.format(",")(slider.value) + " Miles In 2021";
 
         // update slider label
         sliderLabel.innerHTML = d3.format(",")(slider.value);
