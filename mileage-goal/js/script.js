@@ -26,6 +26,8 @@ else{ // on larger device
 
 
 d3.csv(file_name, function(data) {
+
+    document.getElementById('mostRecentDate').innerHTML = data[data.length - 1].date;
     
     // control how many labels are shown: lower number = more labels. Ex: 2 = label every other day, 10 = every other 10 days
     // we want to show every other (# of weeks / 2) 
