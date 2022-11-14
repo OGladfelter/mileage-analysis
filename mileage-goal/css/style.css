@@ -242,7 +242,7 @@ img{
     width: 45%;
     margin-left: 3.33%;
     margin-right: 0%;
-    float: left;
+    /* float: left; */
 }
   
 /* Clear floats after the columns */

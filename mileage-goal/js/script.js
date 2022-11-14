@@ -262,7 +262,7 @@ d3.csv(file_name, function(data) {
     annotations.select("rect").attr("width", annotationsWidth).attr("height", annotationsHeight);
 
     // move annotations box to bottom right corner of graph (with some breathing room)
-    annotations.attr("transform", "translate(" + (x(data[data.length-1].date) - annotationsWidth - 50) + "," + (y(0) - annotationsHeight - 50) + ")");
+    annotations.attr("transform", "translate(" + (x(data[data.length-1].date) - annotationsWidth - 10) + "," + (y(0) - annotationsHeight - 10) + ")");
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -281,7 +281,7 @@ d3.csv(file_name, function(data) {
 
         // move slider div from bottom of page to top left of graph (with 5% height and weight margins for breathing room)
         // first by translating to 0,0 position on page, then to bottom right of y-axis top point
-        document.getElementById("sliderDiv").style.transform = "translate(" + (-sliderDiv_x_offset + yAxisLeftPoint + (width * .05)) + "px," + (-sliderDiv_y_offset + yAxisTopPoint + (height * .05)) + "px)";
+        document.getElementById("sliderDiv").style.transform = "translate(" + (-sliderDiv_x_offset + yAxisLeftPoint + (width * .05)) + "px," + (-sliderDiv_y_offset + yAxisTopPoint + (height * 0)) + "px)";
     }
 
     var slider = document.getElementById("slider");
