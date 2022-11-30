@@ -142,7 +142,7 @@ d3.csv(file_name, function(data) {
         .data(data)
         .enter()
         .append("text") // Uses the enter().append() method
-        .attr("class", "label") // Assign a class for styling
+        .attr("class", "mileLabel") // Assign a class for styling
         .attr("x", function(d) { return x(d.date) })
         .attr("y", function(d) { return y(d.mileage) })
         .attr("dy", "-40")
@@ -183,8 +183,8 @@ d3.csv(file_name, function(data) {
         // rect is drawn on top of label. Pull label above rect.
         selection.raise();
 
-        // annotations node too
-        d3.select(".annotation").raise();
+        // callOut node too
+        d3.select(".callOut").raise();
     };
 
     // adding intersection lines
@@ -203,9 +203,9 @@ d3.csv(file_name, function(data) {
         .attr("y2", y(0))
         .attr("visibility","hidden");
 
-    ///////////////////////// code for annotations box ///////////////////////////////////////////////////////
+    ///////////////////////// code for callOut box ///////////////////////////////////////////////////////
 
-    // annotations box can be dragged
+    // callOut box can be dragged
     function dragged(event, d) {d3.select(this).attr("transform", "translate(" + (d3.event.x) + "," + (d3.event.y) + ")");}
 
     // measure diff between actual mileage and pace mileage
@@ -217,19 +217,19 @@ d3.csv(file_name, function(data) {
     var onTrackFor = data[data.length-1].mileage / data.length * 365;
   
     // create annotations node
-    annotations = svg
+    callOut = svg
         .append("g")
-        .attr("class", "annotation")
+        .attr("class", "callOut")
         .call(d3.drag().on("drag", dragged));
     
     // add rectangle
-    annotations.append("rect")
+    callOut.append("rect")
         .attr("x", 0)
         .attr("y", 0)
         // we will determine width and height programatically after adding text
        
     // "ZZ miles this year" text
-    annotations.append("text")
+    callOut.append("text")
         .attr("id", "milesThisYearText")
         .attr("x", 10)
         .attr("y", 10)
@@ -237,7 +237,7 @@ d3.csv(file_name, function(data) {
         .html(d3.format(",")(data[data.length-1].mileage.toFixed(0)) + ' miles this year');
     
     // "YY miles ahead/behind pace" text
-    annotations.append("text")
+    callOut.append("text")
         .attr("id", "paceEvalText")
         .attr("x", 10)
         .attr("y", 32)
@@ -245,7 +245,7 @@ d3.csv(file_name, function(data) {
         .html(paceEval.toFixed(0) + " miles " + aheadBehind + " goal pace");
     
     // "On pace to run Y,YYY miles" text
-    annotations.append("text")
+    callOut.append("text")
         .attr("id", "onPaceForText")
         .attr("x", 10)
         .attr("y", 54)
@@ -259,10 +259,10 @@ d3.csv(file_name, function(data) {
     var annotationsWidth = bbox2.width + 25;
     var annotationsHeight = bbox2.y + bbox2.height - bbox1.y + 15;
 
-    annotations.select("rect").attr("width", annotationsWidth).attr("height", annotationsHeight);
+    callOut.select("rect").attr("width", annotationsWidth).attr("height", annotationsHeight);
 
-    // move annotations box to bottom right corner of graph (with some breathing room)
-    annotations.attr("transform", "translate(" + (x(data[data.length-1].date) - annotationsWidth - 10) + "," + (y(0) - annotationsHeight - 10) + ")");
+    // move callOut box to bottom right corner of graph (with some breathing room)
+    callOut.attr("transform", "translate(" + (x(data[data.length-1].date) - annotationsWidth - 10) + "," + (y(0) - annotationsHeight - 10) + ")");
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -309,7 +309,7 @@ d3.csv(file_name, function(data) {
         updateGoal(slider.value);
     };
 
-    function updateGoal(newGoal){
+    function updateGoal(newGoal) {
 
         // recompute and overwrite pace column
         data.forEach(function(d, i){
@@ -439,6 +439,35 @@ d3.csv(file_name, function(data) {
     pulseOnMaxMileage();
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    // add annotations
+
+    function addAnnotation(title, label, date, mileage) {
+        let annotation = [{
+            note: {
+              title: title,
+              label: label
+            },
+              //can use x, y directly instead of data
+              x: x(parseDate(date)),
+              y: y(mileage),
+              dy: -50,
+              dx: -50,
+          }];
+        let makeAnnotations = d3.annotation()
+            .notePadding(5)
+            .type(d3.annotationLabel)
+            .annotations(annotation);
+        svg
+            .append("g")
+            .attr("class", "annotation-group")
+            .call(makeAnnotations);
+    }
+
+    addAnnotation("Marathon", "", "2022-04-02", 576);
+    addAnnotation("50k Race", "", "2022-04-30", 727);
+    addAnnotation("33 Mile Race", "I missed a turn...", "2022-07-23", 1240);
+    addAnnotation("12-Hour Race", "", "2022-08-27", 1443);
 
 });
 

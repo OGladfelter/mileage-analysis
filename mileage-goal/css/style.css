@@ -91,11 +91,19 @@ span.bylineSpan{
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
 }
 
-.label{
+.mileLabel {
     font-weight: bold;
     text-anchor: middle;
     alignment-baseline: middle;
     pointer-events: none;
+    font-size: 15px;
+}
+
+.label {
+    text-anchor: middle;
+    alignment-baseline: middle;
+    pointer-events: none;
+    font-size: 15px;
 }
 
 .hoverLineHorizontal {
@@ -126,11 +134,11 @@ span.bylineSpan{
     text-align: left;
 }
 
-.annotation{
+.callOut {
     cursor: pointer;
     font-size: 16px;
 }
-.annotation rect{
+.callOut rect{
     fill: #b1ffff;
     rx: 10;
     ry: 10;
@@ -138,14 +146,18 @@ span.bylineSpan{
     stroke: black;
 }
 
+.annotations {
+    pointer-events: none;
+}
+
 @media screen and (max-width: 600px) {
-    /* hide annotations bubble if they're on mobile */
-    .annotation{
+    /* hide callOut bubble if they're on mobile */
+    .callOut {
         visibility: hidden;
     }
 
     /* hide y axis label if they're on mobile */
-    .yAxisLabel{
+    .yAxisLabel {
         visibility: hidden;
     }
 
