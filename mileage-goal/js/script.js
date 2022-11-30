@@ -1,6 +1,6 @@
 // parameters
 const file_name = "data/2022_mileage.csv"; // name of data csv
-const annual_mileage_goal = 1800; // how many miles I want(ed) to run in this(past) year
+const annual_mileage_goal = 1700; // how many miles I want(ed) to run in this(past) year
 
 // set the dimensions and margins of the graph on mobile
 if (screen.width < 600){
@@ -80,7 +80,7 @@ d3.csv(file_name, function(data) {
     // set the ranges
     x = d3.scaleTime().range([0, width]).domain(d3.extent(data, function(d) { return d.date; }));
     y = d3.scaleLinear().range([height, 0]).domain([0,d3.max([maxMileage, maxPace])]);
-    r = d3.scaleLinear().range([0, 20]).domain(d3.extent(data, function(d) { return d.miles; })).clamp(true);
+    r = d3.scaleLinear().range([2, 15]).domain(d3.extent(data, function(d) { return d.miles; })).clamp(true);
 
     // add axes
     var xAxis = d3.axisBottom(x).ticks(numTicks).tickFormat(d3.timeFormat("%b %d"));
@@ -133,7 +133,7 @@ d3.csv(file_name, function(data) {
         .attr("class", "dot") 
         .attr("cx", function(d) {return x(d.date)})
         .attr("cy", function(d) {return y(d.mileage)})
-        .style("r", function(d) {return r(d.miles)})
+        .style("r", function(d) {if (d.miles < 1) { return 0 } return r(d.miles)})
         .on("mouseover", pointMouseover)
         .on("mouseout", pointMouseout);  
 
