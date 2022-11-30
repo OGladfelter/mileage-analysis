@@ -439,12 +439,39 @@ d3.csv(file_name, function(data) {
             .call(makeAnnotations);
     }
 
+    function addRectAnnotation(title, label, date, mileage) {
+        let annotation = [{
+            note: {
+              title: title,
+              label: label
+            },
+              //can use x, y directly instead of data
+              x: x(parseDate(date)),
+              y: y(mileage),
+              dy: 0,
+              dx: 0,
+              subject: {
+                width: 175,
+                height: -50
+              }
+          }];
+        let makeAnnotations = d3.annotation()
+            .notePadding(5)
+            .type(d3.annotationCalloutRect)
+            .annotations(annotation);
+        svg
+            .append("g")
+            .attr("class", "annotation-group")
+            .call(makeAnnotations);
+    }
+
     function addAllAnnotations() {
         d3.selectAll(".annotation-group").remove();
         addAnnotation("Marathon", "", "2022-04-02", 576);
         addAnnotation("50k Race", "", "2022-04-30", 727);
         addAnnotation("33 Mile Race", "I missed a turn...", "2022-07-23", 1240);
         addAnnotation("12-Hour Race", "", "2022-08-27", 1443);
+        addRectAnnotation("Injured", "", "2022-09-20", 1450);
     }
 
     addAllAnnotations();
