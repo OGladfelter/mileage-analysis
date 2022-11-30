@@ -138,7 +138,7 @@ d3.csv(file_name, function(data) {
         .on("mouseout", pointMouseout);  
 
     // draw labels
-    svg.selectAll(".label")
+    svg.selectAll(".mileLabel")
         .data(data)
         .enter()
         .append("text") // Uses the enter().append() method
@@ -158,34 +158,7 @@ d3.csv(file_name, function(data) {
                 // no label needed for Jan 1st, when I didn't run
                 return "";
             }
-        })
-        .call(getTextBox);
-    
-    // draw rectangle on top of text label; called on every text label;
-    function getTextBox(selection) {
-
-        d3.selectAll("#labelBackground").remove();
-
-        // for each element in the selection...
-        selection.each(function() { 
-            
-            var bbox = this.getBBox(); // get the bounding box
-
-            svg.append("rect")
-            .attr("id", "labelBackground")
-            .attr("x", bbox.x)
-            .attr("y", bbox.y)
-            .attr("width", bbox.width)
-            .attr("height", Math.max(0, bbox.height - 5)) // returns a slightly shorter-than text box (or 0 if there isn't a label)
-            .style("fill", "whitesmoke");
         });
-
-        // rect is drawn on top of label. Pull label above rect.
-        selection.raise();
-
-        // callOut node too
-        d3.select(".callOut").raise();
-    };
 
     // adding intersection lines
     svg.append("line")
@@ -330,7 +303,7 @@ d3.csv(file_name, function(data) {
         d3.select(".mileage_line").transition().attr("d", mileageLine); 
 
         // move labels to stay with line
-        svg.selectAll(".label").attr("y", function(d) { return y(d.mileage) }).call(getTextBox);
+        svg.selectAll(".mileLabel").attr("y", function(d) { return y(d.mileage) });
 
         // move dots to stay with line
         svg.selectAll(".dot").transition().attr("cy", function(d) {return y(d.mileage)});
@@ -339,6 +312,8 @@ d3.csv(file_name, function(data) {
         paceEval = Math.abs(data[data.length-1].mileage - newGoalPaceToday);
         aheadBehind = (data[data.length-1].mileage > newGoalPaceToday) ? "ahead of" : "behind";
         d3.select("#paceEvalText").text(paceEval.toFixed(0) + " miles " + aheadBehind + " goal pace");
+
+        addAllAnnotations();
     }
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -464,10 +439,15 @@ d3.csv(file_name, function(data) {
             .call(makeAnnotations);
     }
 
-    addAnnotation("Marathon", "", "2022-04-02", 576);
-    addAnnotation("50k Race", "", "2022-04-30", 727);
-    addAnnotation("33 Mile Race", "I missed a turn...", "2022-07-23", 1240);
-    addAnnotation("12-Hour Race", "", "2022-08-27", 1443);
+    function addAllAnnotations() {
+        d3.selectAll(".annotation-group").remove();
+        addAnnotation("Marathon", "", "2022-04-02", 576);
+        addAnnotation("50k Race", "", "2022-04-30", 727);
+        addAnnotation("33 Mile Race", "I missed a turn...", "2022-07-23", 1240);
+        addAnnotation("12-Hour Race", "", "2022-08-27", 1443);
+    }
+
+    addAllAnnotations();
 
 });
 
